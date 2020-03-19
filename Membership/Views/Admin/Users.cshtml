@@ -1,0 +1,101 @@
+﻿@using Membership.Models
+@model UsersViewModel
+@{
+    ViewBag.Title = "Admin";
+}
+
+<div class="col-md-6">
+
+    <div style="margin-top: 10px">
+        @Html.ActionLink("Add New User", "CreateUser", "Admin", new { @class = "btn btn-primary" })
+    </div>
+
+    <h2>Users</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th width="100px"></th>
+                <th width="200px">Username</th>
+                <th width="200px">Role</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model.Users)
+            {
+                <tr>
+                    <td><span class="deleteUser" style="color:#337ab7;cursor:pointer;" data-user-id="@user.Id">Delete</span></td>
+                    <td>@user.UserName</td>
+                    <td>@Model.Roles.FirstOrDefault(x => x.Id == user.Roles.First().RoleId).Name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="col-md-6">
+
+    <div style="margin-top: 10px">
+        @Html.ActionLink("Add Status", "CreateStatus", "Admin", new { @class = "btn btn-primary" })
+    </div>
+
+    <h2>Statuses</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th width="100px"></th>
+                <th width="200px">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var status in Model.Statuses)
+            {
+                <tr>
+                    <td><span class="deleteStatus" style="color:#337ab7;cursor:pointer;" data-status-id="@status.Id">Delete</span></td>
+                    <td>@status.Name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+       
+        $('.deleteStatus').click(function () {
+            var conf = confirm('Are you sure you wish to delete this status?');
+            if (conf) {
+                var $status = $(this);
+                var id = $status.data('status-id');
+                var payload = { id: id };
+                $.ajax({
+                    method: 'POST',
+                    url: '@Url.Action("DeleteStatus", "Admin")',
+                    data: JSON.stringify(payload),
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (e) {
+                        window.location.reload();
+                    }
+                })
+            }
+        })
+          $('.deleteUser').click(function () {
+            var conf = confirm('Are you sure you wish to delete this user?');
+            if (conf) {
+                var $user = $(this);
+                var id = $user.data('user-id');
+                var payload = { id: id };
+                $.ajax({
+                    method: 'POST',
+                    url: '@Url.Action("DeleteUser", "Admin")',
+                    data: JSON.stringify(payload),
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (e) {
+                        window.location.reload();
+                    }
+                })
+            }
+        })
+    })
+</script>

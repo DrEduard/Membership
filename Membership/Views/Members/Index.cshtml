@@ -1,0 +1,31 @@
+﻿@using Membership.Models
+
+
+@if (User.IsInRole("Admin") || User.IsInRole("Editor"))
+{
+    <div style="margin-top: 10px">
+        @Html.ActionLink("Add New Member", "Create", "Member", new { @class = "btn btn-primary" })
+    </div>
+}
+
+@Html.Partial("_MVCGridToolbar", new MVCGridToolbarModel()
+{
+    MVCGridName = "MembersGrid",
+    PageSize = false,
+    ColumnVisibility = true,
+    Export = true,
+    GlobalSearch = true
+})
+@Html.MVCGrid("MembersGrid")
+
+
+<script>
+    $(document).ready(function () {
+         if ('@ViewBag.canEdit' == 'False') {
+            $('#MVCGridTable_MembersGrid thead tr').each(function(){$(this).find('th:eq(2)').remove();})
+            $('#MVCGridTable_MembersGrid thead tr').each(function(){$(this).find('th:eq(1)').remove();})
+            $('#MVCGridTable_MembersGrid tbody tr').each(function(){$(this).find('td:eq(2)').remove();})
+            $('#MVCGridTable_MembersGrid tbody tr').each(function(){$(this).find('td:eq(1)').remove();})
+        }
+    })
+</script>

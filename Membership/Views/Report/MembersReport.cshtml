@@ -1,0 +1,50 @@
+﻿@using Membership
+@using Telerik.Reporting
+@using Telerik.ReportViewer.Mvc
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Telerik MVC HTML5 Report Viewer</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <link href="http://kendo.cdn.telerik.com/2018.2.620/styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="http://kendo.cdn.telerik.com/2018.2.620/styles/kendo.blueopal.min.css" rel="stylesheet" />
+
+    <style>
+        #reportViewer1 {
+            position: relative;
+            width: 1300px;
+            height: 900px;
+            font-family: Verdana, Arial;
+        }
+    </style>
+
+    <!--If Kendo is used it should be added before the report viewer.-->
+    <script src="@Url.Content("~/api/reports/resources/js/telerikReportViewer")"></script>
+
+</head>
+<body>
+
+    @(Html.TelerikReporting().ReportViewer()
+            .Id("reportViewer1")
+            .ServiceUrl(Url.Content("~/api/reports"))
+            .ReportSource(new UriReportSource() { Uri = "MembersReport.trdp" })
+            .ViewMode(ViewMode.Interactive)
+            .ScaleMode(ScaleMode.Specific)
+            .Scale(1.0)
+            .PersistSession(false)
+            .PrintMode(PrintMode.AutoSelect)
+            .SendEmail(new SendEmail { Enabled = false })
+            .EnableAccessibility(false)
+    )
+
+</body>
+</html>

@@ -1,0 +1,91 @@
+﻿@using Membership.Models
+@model MVCGridToolbarModel
+@{
+    string gridName = Model.MVCGridName;
+}
+
+<div class="row" style="margin-top:20px">
+    @*<div class="well">
+        <div class="form-inline">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Last Name"
+                       data-mvcgrid-type="filter" data-mvcgrid-option="LastName" />
+            </div>
+            <div class="form-group">
+
+
+                <input type="email" class="form-control" placeholder="First name"
+                       data-mvcgrid-type="filter" data-mvcgrid-option="FirstName" />
+            </div>
+            <div class="form-group">
+                <select class="form-control" data-mvcgrid-type="filter" data-mvcgrid-option="Status">
+                    <option value=""></option>
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                </select>
+            </div>
+            <button type="button" class="btn btn-default" data-mvcgrid-apply-filter="click">Apply</button>
+        </div>
+    </div>*@
+    <div class="col-md-3">
+        <div class="form-inline">
+            <select id="statusDropdown" class="form-control selectpicker"
+                    data-mvcgrid-type="filter" data-mvcgrid-option="Status">
+                <option value="-1" selected="selected">-- All Statuses --</option>
+                @foreach (var status in Model.Statuses)
+                {
+                    <option value="@status.Id">
+                        @status.Name
+                    </option>
+                }
+            </select>
+            <button type="button" class="btn btn-default" data-mvcgrid-apply-filter="click">Apply</button>
+
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="form-inline pull-right">
+            <div class="btn-group">
+                @if (Model.ColumnVisibility)
+                {
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            <span class="glyphicon glyphicon-list" aria-hidden="true"></span> Fields
+                        </button>
+                        <ul class="dropdown-menu" role="menu" data-mvcgrid-type="columnVisibilityList" data-mvcgrid-name="@(gridName)"></ul>
+                    </div>
+                }
+                @if (Model.Export)
+                {
+                    <button class="btn btn-default">
+                        <a href='@Url.Action("Table","Report")'><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Export table</a>
+                    </button>
+                    <button class="btn btn-default">
+                        <a href='@Url.Action("Report","Report")'><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Export report</a>
+                    </button>
+                }
+            </div>
+
+            @if (Model.GlobalSearch)
+            {
+                <span>&nbsp;</span>
+                <div class="form-group">
+                    <label>
+                        Search: <input type="search" placeholder="Search" class="form-control"
+                                       data-mvcgrid-type="additionalQueryOption" data-mvcgrid-option="search" data-mvcgrid-name="@(gridName)"
+                                       data-mvcgrid-apply-additional="keyup">
+                    </label>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        setTimeout(function () {
+            $('#statusDropdown').val('-1');
+        }, 500);
+        
+    })
+</script>

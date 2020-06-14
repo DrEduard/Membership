@@ -57,12 +57,12 @@
                 }
                 @if (Model.Export)
                 {
-                    <button class="btn btn-default">
-                        <a href='@Url.Action("Table","Report")'><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Export table</a>
-                    </button>
-                    <button class="btn btn-default">
-                        <a href='@Url.Action("Report","Report")'><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Export report</a>
-                    </button>
+                    @*<button class="btn btn-default">
+                        <a href='#' ><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Export table</a>
+                    </button>*@
+            <button id="exportReport" class="btn btn-default">
+                <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Export Report
+            </button>
                 }
             </div>
 
@@ -83,6 +83,17 @@
 
 <script>
     $(document).ready(function () {
+        
+         $('#exportButton').click(function () {
+            location.href = MVCGrid.getExportUrl('ExportGrid');
+        });
+        $('#exportReport').on('click', function () {
+            var href = '/Report/Report/' + $('#statusDropdown').val();
+            console.log(href);
+            location.href = '@Url.Action("Report", "Report")?status=' + $('#statusDropdown').val();
+            //location.href = MVCGrid.getExportUrl('MembersGrid');
+        })
+
         setTimeout(function () {
             $('#statusDropdown').val('-1');
         }, 500);

@@ -13,6 +13,14 @@
         <hr />
         <dl class="dl-horizontal">
             <dt>
+                @Html.DisplayName("MemNum")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.MemNum)
+            </dd>
+
+            <dt>
                 @Html.DisplayNameFor(model => model.StatusId)
             </dt>
 
@@ -203,18 +211,18 @@
                 @Html.DisplayFor(model => model.ElectionDate)
             </dd>
             <dt>
-                @Html.DisplayNameFor(model => model.ResignationDate)
+                @Html.DisplayNameFor(model => model.TerminationDate)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.ResignationDate)
+                @Html.DisplayFor(model => model.TerminationDate)
             </dd>
             <dt>
-                @Html.DisplayNameFor(model => model.DeceasedDate)
+                @Html.DisplayNameFor(model => model.Reason)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.DeceasedDate)
+                @Html.DisplayFor(model => model.Reason)
             </dd>
 
             <dt>

@@ -90,16 +90,16 @@ namespace Membership
                 }
             }
 
-            if(context.Statuses.ToList().Count == 0)
+            if (context.Statuses.ToList().Count == 0)
             {
-                context.Statuses.Add(new Status { Name = "Active Res" });
-                context.Statuses.Add(new Status { Name = "Assoc" });
-                context.Statuses.Add(new Status { Name = "Honorary" });
-                context.Statuses.Add(new Status { Name = "Widow" });
-                context.Statuses.Add(new Status { Name = "Waiting" });
-                context.Statuses.Add(new Status { Name = "Active NonRes" });
-                context.Statuses.Add(new Status { Name = "Admin" });
-                context.Statuses.Add(new Status { Name = "Deceased" });
+                context.Statuses.Add(new Status { Id = 1, Name = "Active Res" });
+                context.Statuses.Add(new Status { Id = 2, Name = "Emeritus" });
+                context.Statuses.Add(new Status { Id = 3, Name = "Honorary" });
+                context.Statuses.Add(new Status { Id = 4, Name = "Widow" });
+                context.Statuses.Add(new Status { Id = 5, Name = "Waiting" });
+                context.Statuses.Add(new Status { Id = 6, Name = "Active NonRes" });
+                context.Statuses.Add(new Status { Id = 7, Name = "Former" });
+                context.Statuses.Add(new Status { Id = 8, Name = "Unknown" });
                 context.SaveChanges();
             }
         }

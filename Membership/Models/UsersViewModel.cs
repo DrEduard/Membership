@@ -11,5 +11,10 @@ namespace Membership.Models
         public List<ApplicationUser> Users { get; set; }
         public List<IdentityRole> Roles { get; set; }
         public List<Status> Statuses { get; set; }
+
+        public UsersViewModel()
+        {
+
+        }
     }
 }

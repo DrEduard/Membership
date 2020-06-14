@@ -18,5 +18,10 @@ namespace Membership.Models
         [Required]
         public string Role { get; set; }
         public List<IdentityRole> Roles { get; set; }
+
+        public UserViewModel()
+        {
+
+        }
     }
 }

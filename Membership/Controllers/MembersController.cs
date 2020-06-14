@@ -46,8 +46,10 @@ namespace Membership.Controllers
         // GET: Members/Create
         public ActionResult Create()
         {
-            var statuses = db.Statuses.OrderBy(x=>x.Name).ToList();
-            return View(new MemberViewModel(new Member(), statuses));
+            var statuses = db.Statuses.OrderBy(x => x.Name).ToList();
+            var member = new Member();
+            member.MemNum = db.Members.Max(x => x.MemNum) + 1;
+            return View(new MemberViewModel(member, statuses));
         }
 
         // POST: Members/Create
@@ -55,17 +57,26 @@ namespace Membership.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Member member)
+        public ActionResult Create(MemberViewModel vm)
         {
             if (ModelState.IsValid)
             {
-                member.LastUpdate = DateTime.Now;
-                db.Members.Add(member);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                var existingMemNums = db.Members.Where(x => x.MemNum == vm.Member.MemNum);
+                if (existingMemNums.Any())
+                {
+                    ModelState.AddModelError(string.Empty, "The MemNum must be unique");
+                }
+                else
+                {
+                    vm.Member.LastUpdate = DateTime.Now;
+                    db.Members.Add(vm.Member);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
+            vm.Statuses = db.Statuses.ToList();
 
-            return View(member);
+            return View(vm);
         }
 
         // GET: Members/Edit/5
@@ -80,7 +91,8 @@ namespace Membership.Controllers
             {
                 return HttpNotFound();
             }
-            var statuses = db.Statuses.OrderBy(x=>x.Name).ToList();
+
+            var statuses = db.Statuses.OrderBy(x => x.Name).ToList();
             return View(new MemberViewModel(member, statuses));
         }
 
@@ -89,16 +101,25 @@ namespace Membership.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Member member)
+        public ActionResult Edit(MemberViewModel vm)
         {
             if (ModelState.IsValid)
             {
-                member.LastUpdate = DateTime.Now;
-                db.Entry(member).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                var existingMemNums = db.Members.Where(x => x.MemNum == vm.Member.MemNum);
+                if (existingMemNums.Any(x => x.Id != vm.Member.Id))
+                {
+                    ModelState.AddModelError(string.Empty, "The MemNum must be unique");
+                }
+                else
+                {
+                    vm.Member.LastUpdate = DateTime.Now;
+                    db.Entry(vm.Member).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
-            return View(member);
+            vm.Statuses = db.Statuses.ToList();
+            return View(vm);
         }
 
         // GET: Members/Delete/5
@@ -119,7 +140,6 @@ namespace Membership.Controllers
 
         // POST: Members/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             Member member = db.Members.Find(id);

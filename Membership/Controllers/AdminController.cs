@@ -95,7 +95,6 @@ namespace Membership.Controllers
         }
 
         [HttpPost, ActionName("DeleteUser")]
-        [ValidateAntiForgeryToken]
         public ActionResult DeleteUser(string id)
         {
             var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));

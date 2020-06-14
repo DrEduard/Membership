@@ -30,55 +30,56 @@ namespace Membership
                 .AddColumns(cols =>
                 {
                     // Add your columns here
-                    cols.Add("View").WithHtmlEncoding(false)
-                        .WithSorting(false)
-                        .WithHeaderText(" ")
-                        .WithValueExpression((p, c) => c.UrlHelper.Action("Details", "Members", new { id = p.Id }))
-                        .WithValueTemplate("<a href='{Value}' class='btn btn-default' role='button'>View</a>");
+                    //cols.Add("View").WithHtmlEncoding(false)
+                    //    .WithSorting(false)
+                    //    .WithHeaderText(" ")
+                    //    .WithValueExpression((p, c) => c.UrlHelper.Action("Details", "Members", new { id = p.Id }))
+                    //    .WithValueTemplate("<a href='{Value}' class='btn btn-default' role='button'>View</a>");
                     cols.Add("Edit").WithHtmlEncoding(false)
                         .WithSorting(false)
                         .WithHeaderText(" ")
                         .WithValueExpression((p, c) => c.UrlHelper.Action("Edit", "Members", new { id = p.Id }))
                         .WithVisibility(!isViewer)
                         .WithValueTemplate("<a href='{Value}' class='btn btn-default' role='button'>Edit</a>");
-                    cols.Add("Delete").WithHtmlEncoding(false)
-                        .WithSorting(false)
-                        .WithHeaderText(" ")
-                        .WithValueExpression((p, c) => c.UrlHelper.Action("Delete", "Members", new { id = p.Id }))
-                        .WithVisibility(!isViewer)
-                        .WithValueTemplate("<a href='{Value}' class='btn btn-danger' role='button'>Delete</a>");
+                    //cols.Add("Delete").WithHtmlEncoding(false)
+                    //    .WithSorting(false)
+                    //    .WithHeaderText(" ")
+                    //    .WithValueExpression((p, c) => c.UrlHelper.Action("Delete", "Members", new { id = p.Id }))
+                    //    .WithVisibility(!isViewer)
+                    //    .WithValueTemplate("<a href='{Value}' class='btn btn-danger' role='button'>Delete</a>");
 
-                    cols.Add("Id")
+                    cols.Add("MemNum")
                         .WithSorting(true)
-                        .WithHeaderText("Id")
-                         .WithAllowChangeVisibility(true)
-                        .WithValueExpression(i => i.Id.ToString());
+                        .WithHeaderText("Mem Num")
+                        .WithAllowChangeVisibility(true)
+                        .WithValueExpression(i => i.MemNum.ToString());
                     cols.Add("Status")
                         .WithSorting(true)
                         .WithFiltering(true)
                         .WithHeaderText("Status")
                         .WithAllowChangeVisibility(true)
                         .WithValueExpression(i => i.Status.Name);
+                    cols.Add("LastName")
+                        .WithSorting(true)
+                        .WithAllowChangeVisibility(true)
+                        .WithHeaderText("Last")
+                        .WithValueExpression(i => i.LastName);
                     cols.Add("FirstName")
                        .WithSorting(true)
-                       .WithHeaderText("FirstName")
+                       .WithHeaderText("First")
                         .WithAllowChangeVisibility(true)
                        .WithValueExpression(i => i.FirstName);
                     cols.Add("MiddleName")
                        .WithSorting(true)
                         .WithAllowChangeVisibility(true)
-                       .WithHeaderText("MiddleName")
+                       .WithHeaderText("Middle")
                        .WithValueExpression(i => i.MiddleName);
                     cols.Add("NickName")
                       .WithSorting(true)
                        .WithAllowChangeVisibility(true)
-                      .WithHeaderText("NickName")
+                      .WithHeaderText("Nick")
                       .WithValueExpression(i => i.NickName);
-                    cols.Add("LastName")
-                      .WithSorting(true)
-                       .WithAllowChangeVisibility(true)
-                      .WithHeaderText("LastName")
-                      .WithValueExpression(i => i.LastName);
+
                     cols.Add("Title")
                       .WithSorting(true)
                        .WithAllowChangeVisibility(true)
@@ -89,10 +90,26 @@ namespace Membership
                        .WithAllowChangeVisibility(true)
                       .WithHeaderText("Suffix")
                       .WithValueExpression(i => i.Suffix);
+                    cols.Add("HomePhone")
+                      .WithSorting(true)
+                       .WithAllowChangeVisibility(true)
+                      .WithHeaderText("HomePhone")
+                      .WithValueExpression(i => i.HomePhone);
+                    cols.Add("CellPhone")
+                      .WithSorting(true)
+                       .WithAllowChangeVisibility(true)
+                      .WithHeaderText("CellPhone")
+                      .WithValueExpression(i => i.CellPhone);
+                    cols.Add("OfficePhone")
+                     .WithSorting(true)
+                      .WithAllowChangeVisibility(true)
+                     .WithHeaderText("OfficePhone")
+                     .WithValueExpression(i => i.OfficePhone);
+
                     cols.Add("StreetAddress")
                       .WithSorting(true)
                        .WithAllowChangeVisibility(true)
-                      .WithHeaderText("StreetAddress")
+                      .WithHeaderText("Street")
                       .WithValueExpression(i => i.StreetAddress);
                     cols.Add("City")
                       .WithSorting(true)
@@ -109,16 +126,7 @@ namespace Membership
                        .WithAllowChangeVisibility(true)
                       .WithHeaderText("Zip")
                       .WithValueExpression(i => i.Zip);
-                    cols.Add("HomePhone")
-                      .WithSorting(true)
-                       .WithAllowChangeVisibility(true)
-                      .WithHeaderText("HomePhone")
-                      .WithValueExpression(i => i.HomePhone);
-                    cols.Add("CellPhone")
-                      .WithSorting(true)
-                       .WithAllowChangeVisibility(true)
-                      .WithHeaderText("CellPhone")
-                      .WithValueExpression(i => i.CellPhone);
+
                     cols.Add("Email")
                       .WithSorting(true)
                        .WithAllowChangeVisibility(true)
@@ -134,58 +142,61 @@ namespace Membership
                        .WithAllowChangeVisibility(true)
                       .WithHeaderText("Clan")
                       .WithValueExpression(i => i.Clan);
+                    cols.Add("Business")
+                   .WithSorting(true)
+                    .WithAllowChangeVisibility(true)
+                   .WithHeaderText("Business")
+                   .WithValueExpression(i => i.Business);
+                    cols.Add("WaitingStatus")
+                    .WithSorting(true)
+                     .WithAllowChangeVisibility(true)
+                    .WithHeaderText("WaitingStatus")
+                    .WithValueExpression(i => i.WaitingStatus);
+                    cols.Add("NewMemberOrientation")
+                    .WithSorting(true)
+                     .WithAllowChangeVisibility(true)
+                    .WithHeaderText("NMOrientation")
+                    .WithValueExpression(i => i.NewMemberOrientation);
                     cols.Add("Kilted")
                       .WithSorting(true)
                        .WithAllowChangeVisibility(true)
                       .WithHeaderText("Kilted")
                       .WithValueExpression(i => i.Kilted);
-                    cols.Add("Business")
-                    .WithSorting(true)
-                     .WithAllowChangeVisibility(true)
-                    .WithHeaderText("Business")
-                    .WithValueExpression(i => i.Business);
-                    cols.Add("OfficePhone")
-                     .WithSorting(true)
-                      .WithAllowChangeVisibility(true)
-                     .WithHeaderText("OfficePhone")
-                     .WithValueExpression(i => i.OfficePhone);
+
                     cols.Add("ApplicationDate")
                      .WithSorting(true)
                       .WithAllowChangeVisibility(true)
-                     .WithHeaderText("ApplicationDate")
-                     .WithValueExpression(i => i.ApplicationDate.HasValue ? i.ApplicationDate.Value.ToString("dd/MM/yyyy") : "");
+                     .WithHeaderText("Application")
+                     .WithValueExpression(i => i.ApplicationDate.HasValue ? i.ApplicationDate.Value.ToString("MM/dd/yyyy") : "");
                     cols.Add("ElectionDate")
                      .WithSorting(true)
                       .WithAllowChangeVisibility(true)
-                     .WithHeaderText("ElectionDate")
-                     .WithValueExpression(i => i.ElectionDate.HasValue ? i.ElectionDate.Value.ToString("dd/MM/yyyy") : "");
+                     .WithHeaderText("Election")
+                     .WithValueExpression(i => i.ElectionDate.HasValue ? i.ElectionDate.Value.ToString("MM/dd/yyyy") : "");
                     cols.Add("ActivitionDate")
                      .WithSorting(true)
                       .WithAllowChangeVisibility(true)
-                     .WithHeaderText("ActivitionDate")
-                     .WithValueExpression(i => i.ActivitionDate.HasValue ? i.ActivitionDate.Value.ToString("dd/MM/yyyy") : "");
-                    cols.Add("ResignationDate")
+                     .WithHeaderText("Activition")
+                     .WithValueExpression(i => i.ActivitionDate.HasValue ? i.ActivitionDate.Value.ToString("MM/dd/yyyy") : "");
+                    cols.Add("TerminationDate")
                      .WithSorting(true)
                       .WithAllowChangeVisibility(true)
-                     .WithHeaderText("ResignationDate")
-                     .WithValueExpression(i => i.ResignationDate.HasValue ? i.ResignationDate.Value.ToString("dd/MM/yyyy") : "");
-                    cols.Add("DeceasedDate")
+                     .WithHeaderText("Termination")
+                     .WithValueExpression(i => i.TerminationDate.HasValue ? i.TerminationDate.Value.ToString("MM/dd/yyyy") : "");
+
+                    cols.Add("Reason")
                      .WithSorting(true)
                       .WithAllowChangeVisibility(true)
-                     .WithHeaderText("DeceasedDate")
-                     .WithValueExpression(i => i.DeceasedDate.HasValue ? i.DeceasedDate.Value.ToString("dd/MM/yyyy") : "");
-                    cols.Add("NewMemberOrientation")
+                     .WithHeaderText("Reason")
+                     .WithValueExpression(i => i.Reason);
+                    cols.Add("LastUpdate")
                      .WithSorting(true)
                       .WithAllowChangeVisibility(true)
-                     .WithHeaderText("NewMemberOrientation")
-                     .WithValueExpression(i => i.NewMemberOrientation);
-                    cols.Add("WaitingStatus")
-                     .WithSorting(true)
-                      .WithAllowChangeVisibility(true)
-                     .WithHeaderText("WaitingStatus")
-                     .WithValueExpression(i => i.WaitingStatus);
+                     .WithHeaderText("LastUpdate")
+                     .WithValueExpression(i => i.LastUpdate.ToString("MM/dd/yyyy"));
+
                 })
-                .WithSorting(true, "Id")
+                .WithSorting(true, "MemNum")
                 .WithPaging(true, 20)
                 .WithFiltering(true)
                 .WithRetrieveDataMethod((context) =>
@@ -207,87 +218,180 @@ namespace Membership
                                     x.Business.Contains(globalSearch) ||
                                     x.City.Contains(globalSearch))) && (statusId == -1 || x.StatusId == statusId))
                                 .Include(x => x.Status)
-                                .OrderBy(x => x.Id)
+                                .OrderBy(x => x.MemNum)
                                 .AsQueryable();
                             result.TotalRecords = query.Count();
                             if (!String.IsNullOrWhiteSpace(options.SortColumnName))
                             {
                                 switch (options.SortColumnName)
                                 {
-                                    case "StatusId":
-                                        query = query.OrderBy(p => p.StatusId);
+                                    case "Status":
+                                        if(options.SortDirection == SortDirection.Asc)
+                                            query = query.OrderBy(p => p.StatusId);
+                                        else
+                                            query = query.OrderByDescending(p => p.StatusId);
                                         break;
                                     case "FirstName":
-                                        query = query.OrderBy(p => p.FirstName);
+                                        if (options.SortDirection == SortDirection.Asc)
+                                            query = query.OrderBy(p => p.FirstName);
+                                        else
+                                            query = query.OrderByDescending(p => p.FirstName);
                                         break;
                                     case "MiddleName":
-                                        query = query.OrderBy(p => p.MiddleName);
+                                        if (options.SortDirection == SortDirection.Asc)
+                                            query = query.OrderBy(p => p.MiddleName);
+                                        else
+                                            query = query.OrderByDescending(p => p.MiddleName);
                                         break;
                                     case "NickName":
-                                        query = query.OrderBy(p => p.NickName);
+                                        if (options.SortDirection == SortDirection.Asc)
+                                            query = query.OrderBy(p => p.NickName);
+                                        else
+                                            query = query.OrderByDescending(p => p.NickName);
                                         break;
                                     case "LastName":
-                                        query = query.OrderBy(p => p.LastName);
+                                        if (options.SortDirection == SortDirection.Asc)
+                                            query = query.OrderBy(p => p.LastName);
+                                        else
+                                            query = query.OrderByDescending(p => p.LastName);
                                         break;
                                     case "Title":
-                                        query = query.OrderBy(p => p.Title);
+                                        if (options.SortDirection == SortDirection.Asc)
+                                            query = query.OrderBy(p => p.Title);
+                                        else
+                                            query = query.OrderByDescending(p => p.Title);
                                         break;
                                     case "Suffix":
-                                        query = query.OrderBy(p => p.Suffix);
+                                        if (options.SortDirection == SortDirection.Asc)
+                                            query = query.OrderBy(p => p.Suffix);
+                                        else
+                                            query = query.OrderByDescending(p => p.Suffix);
                                         break;
                                     case "StreetAddress":
-                                        query = query.OrderBy(p => p.StreetAddress);
+                                        if (options.SortDirection == SortDirection.Asc)
+                                            query = query.OrderBy(p => p.StreetAddress);
+                                        else
+                                            query = query.OrderByDescending(p => p.StreetAddress);
                                         break;
                                     case "City":
-                                        query = query.OrderBy(p => p.City);
+                                        if (options.SortDirection == SortDirection.Asc)
+                                            query = query.OrderBy(p => p.City);
+                                        else
+                                            query = query.OrderByDescending(p => p.City);
                                         break;
                                     case "State":
-                                        query = query.OrderBy(p => p.State);
+                                        if (options.SortDirection == SortDirection.Asc)
+                                            query = query.OrderBy(p => p.State);
+                                        else
+                                            query = query.OrderByDescending(p => p.State);
                                         break;
                                     case "Zip":
-                                        query = query.OrderBy(p => p.Zip);
+                                        if (options.SortDirection == SortDirection.Asc)
+                                            query = query.OrderBy(p => p.Zip);
+                                        else
+                                            query = query.OrderByDescending(p => p.Zip);
                                         break;
                                     case "HomePhone":
-                                        query = query.OrderBy(p => p.HomePhone);
+                                        if (options.SortDirection == SortDirection.Asc)
+                                            query = query.OrderBy(p => p.HomePhone);
+                                        else
+                                            query = query.OrderByDescending(p => p.HomePhone);
                                         break;
                                     case "OfficePhone":
-                                        query = query.OrderBy(p => p.OfficePhone);
+                                        if (options.SortDirection == SortDirection.Asc)
+                                            query = query.OrderBy(p => p.OfficePhone);
+                                        else
+                                            query = query.OrderByDescending(p => p.OfficePhone);
                                         break;
                                     case "CellPhone":
-                                        query = query.OrderBy(p => p.CellPhone);
+                                        if (options.SortDirection == SortDirection.Asc)
+                                            query = query.OrderBy(p => p.CellPhone);
+                                        else
+                                            query = query.OrderByDescending(p => p.CellPhone);
                                         break;
                                     case "Email":
-                                        query = query.OrderBy(p => p.Email);
+                                        if (options.SortDirection == SortDirection.Asc)
+                                            query = query.OrderBy(p => p.Email);
+                                        else
+                                            query = query.OrderByDescending(p => p.Email);
                                         break;
                                     case "Clan":
-                                        query = query.OrderBy(p => p.Clan);
+                                        if (options.SortDirection == SortDirection.Asc)
+                                            query = query.OrderBy(p => p.Clan);
+                                        else
+                                            query = query.OrderByDescending(p => p.Clan);
                                         break;
                                     case "Kilted":
-                                        query = query.OrderBy(p => p.Kilted);
+                                        if (options.SortDirection == SortDirection.Asc)
+                                            query = query.OrderBy(p => p.Kilted);
+                                        else
+                                            query = query.OrderByDescending(p => p.Kilted);
                                         break;
                                     case "Business":
-                                        query = query.OrderBy(p => p.Business);
+                                        if (options.SortDirection == SortDirection.Asc)
+                                            query = query.OrderBy(p => p.Business);
+                                        else
+                                            query = query.OrderByDescending(p => p.Business);
                                         break;
                                     case "ApplicationDate":
-                                        query = query.OrderBy(p => p.ApplicationDate);
+                                        if (options.SortDirection == SortDirection.Asc)
+                                            query = query.OrderBy(p => p.ApplicationDate);
+                                        else
+                                            query = query.OrderByDescending(p => p.ApplicationDate);
                                         break;
                                     case "ElectionDate":
-                                        query = query.OrderBy(p => p.ElectionDate);
+                                        if (options.SortDirection == SortDirection.Asc)
+                                            query = query.OrderBy(p => p.ElectionDate);
+                                        else
+                                            query = query.OrderByDescending(p => p.ElectionDate);
                                         break;
                                     case "ActivitionDate":
-                                        query = query.OrderBy(p => p.ActivitionDate);
+                                        if (options.SortDirection == SortDirection.Asc)
+                                            query = query.OrderBy(p => p.ActivitionDate);
+                                        else
+                                            query = query.OrderByDescending(p => p.ActivitionDate);
                                         break;
-                                    case "ResignationDate":
-                                        query = query.OrderBy(p => p.ResignationDate);
+                                    case "TerminationDate":
+                                        if (options.SortDirection == SortDirection.Asc)
+                                            query = query.OrderBy(p => p.TerminationDate);
+                                        else
+                                            query = query.OrderByDescending(p => p.TerminationDate);
                                         break;
-                                    case "DeceasedDate":
-                                        query = query.OrderBy(p => p.DeceasedDate);
+                                    case "Reason":
+                                        if (options.SortDirection == SortDirection.Asc)
+                                            query = query.OrderBy(p => p.Reason);
+                                        else
+                                            query = query.OrderByDescending(p => p.Reason);
                                         break;
                                     case "NewMemberOrientation":
-                                        query = query.OrderBy(p => p.NewMemberOrientation);
+                                        if (options.SortDirection == SortDirection.Asc)
+                                            query = query.OrderBy(p => p.NewMemberOrientation);
+                                        else
+                                            query = query.OrderByDescending(p => p.NewMemberOrientation);
                                         break;
                                     case "WaitingStatus":
-                                        query = query.OrderBy(p => p.WaitingStatus);
+                                        if (options.SortDirection == SortDirection.Asc)
+                                            query = query.OrderBy(p => p.WaitingStatus);
+                                        else
+                                            query = query.OrderByDescending(p => p.WaitingStatus);
+                                        break;
+                                    case "LastUpdate":
+                                        if (options.SortDirection == SortDirection.Asc)
+                                            query = query.OrderBy(p => p.LastUpdate);
+                                        else
+                                            query = query.OrderByDescending(p => p.LastUpdate);
+                                        break;
+                                    case "Spouse":
+                                        if (options.SortDirection == SortDirection.Asc)
+                                            query = query.OrderBy(p => p.Spouse);
+                                        else
+                                            query = query.OrderByDescending(p => p.Spouse);
+                                        break;
+                                    case "MemNum":
+                                        if (options.SortDirection == SortDirection.Asc)
+                                            query = query.OrderBy(p => p.MemNum);
+                                        else
+                                            query = query.OrderByDescending(p => p.MemNum);
                                         break;
                                 }
                             }

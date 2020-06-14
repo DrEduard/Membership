@@ -36,7 +36,7 @@
     @(Html.TelerikReporting().ReportViewer()
             .Id("reportViewer1")
             .ServiceUrl(Url.Content("~/api/reports"))
-            .ReportSource(new UriReportSource() { Uri = "MembersReport.trdp" })
+            .ReportSource("MembersReport.trdp", new Dictionary<string, object>() { { "status", ViewBag.status } })
             .ViewMode(ViewMode.Interactive)
             .ScaleMode(ScaleMode.Specific)
             .Scale(1.0)

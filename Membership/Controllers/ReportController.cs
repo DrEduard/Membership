@@ -1,22 +1,37 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Telerik.Reporting;
+using Telerik.Reporting.Processing;
 
 namespace Membership.Controllers
 {
     public class ReportController : Controller
     {
-        // GET: Report
-        public ActionResult Table()
+
+        public ActionResult Table(int status)
         {
+            ViewBag.status = status;
             return View("MembersTable");
         }
 
-        public ActionResult Report()
+        [HttpGet]
+        public ActionResult Report(int status = -1)
         {
-            return View("MembersReport");
+            //ViewBag.status = status;
+            //return View("MembersReport");
+            ReportProcessor reportProcessor = new ReportProcessor();
+            Hashtable deviceInfo = new Hashtable();
+            UriReportSource rs = new UriReportSource();
+            rs.Parameters.Add("status", status);
+            rs.Uri = "Reports/MembersReport.trdp";
+            var res = reportProcessor.RenderReport("xlsx", rs, deviceInfo);
+            var documentName = "MembersReport.xlsx";
+
+            return File(res.DocumentBytes, res.MimeType, documentName);
         }
     }
 }

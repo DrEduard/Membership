@@ -50,9 +50,13 @@ namespace Membership.Models
     public class Member
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Index(IsUnique = true)]
         public int Id { get; set; }
+        [Required]
+        [Index(IsUnique = true)]
+        public int MemNum { get; set; }
         [ForeignKey("Status")]
-        [Range(1, int.MaxValue)]
         public int StatusId { get; set; }
         public Status Status { get; set; }
         [Required]
@@ -82,8 +86,8 @@ namespace Membership.Models
         public DateTime? ApplicationDate { get; set; }
         public DateTime? ElectionDate { get; set; }
         public DateTime? ActivitionDate { get; set; }
-        public DateTime? ResignationDate { get; set; }
-        public DateTime? DeceasedDate { get; set; }
+        public DateTime? TerminationDate { get; set; }
+        public string Reason { get; set; }
         public string NewMemberOrientation { get; set; }
         public string WaitingStatus { get; set; }
         public int CountPK { get; set; }
@@ -94,7 +98,6 @@ namespace Membership.Models
     public class Status
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Name { get; set; }
     }

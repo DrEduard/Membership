@@ -7,6 +7,10 @@ namespace Membership.Models
 {
     public class MemberViewModel
     {
+        public MemberViewModel()
+        {
+
+        }
         public MemberViewModel(Member member, List<Status> statuses)
         {
             Member = member;

@@ -32,7 +32,7 @@ namespace Membership.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplicationDbContext
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("Membership", throwIfV1Schema: false)
         {
         }
 
